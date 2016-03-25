@@ -16,6 +16,13 @@ Conversations
     Retrieve details about a conversation.
 
     :param id: chat thread identifier
+    :resjson id:
+    :resjson lastMessage:
+    :resjson messages:
+    :resjson properties:
+    :resjson targetLink:
+    :resjson type:
+    :resjson version:
 
 Group conversations
 -------------------
@@ -25,6 +32,12 @@ Group conversations
     Fetch additional group-specific information, including the members and admins of the chat, topic, and join permissions.
 
     :param id: chat thread identifier
+    :resjson id:
+    :resjson members:
+    :resjson messages:
+    :resjson properties:
+    :resjson type:
+    :resjson version:
 
 .. http:post:: https://client-s.gateway.messenger.live.com/v1/threads
 
@@ -78,6 +91,16 @@ Messages
     .. note:: This endpoint is :ref:`paginated <pagination>`.
 
     :param id: chat thread identifier
+    :resjsonarr clientmessageid:
+    :resjsonarr composetime:
+    :resjsonarr content:
+    :resjsonarr conversationLink:
+    :resjsonarr from:
+    :resjsonarr id:
+    :resjsonarr messagetype:
+    :resjsonarr originalarrivaltime:
+    :resjsonarr type:
+    :resjsonarr version:
 
 .. http:post:: https://client-s.gateway.messenger.live.com/v1/users/ME/conversations/(string:id)/messages
 

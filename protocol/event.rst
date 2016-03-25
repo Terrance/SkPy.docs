@@ -36,3 +36,8 @@ Events provide real-time information for messages sent and received in conversat
     This returns an array of events since the last poll, under the ``eventMessages`` key.  If no events have occurred, the request will block (the connection will hang, waiting for the server) until an event occurs, at which point it is returned immediately.  After about 30 seconds with no events, an empty array is returned.
 
     :param endpoint: UUID of an active endpoint
+    :resjsonarr id:
+    :resjsonarr resource:
+    :resjsonarr resourceLink:
+    :resjsonarr resourceType:
+    :resjsonarr type:
