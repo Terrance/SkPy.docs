@@ -15,4 +15,4 @@ This page hopes to provide an unofficial documentation for interacting with the 
     event
     contact
     chat
-    static
+    other
