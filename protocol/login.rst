@@ -14,6 +14,8 @@ This is needed to obtain a registration token for most API needs, but is also us
 
     If an input field with id ``captcha`` exists, a Captcha must be completed to login.
 
+    .. note:: When reauthenticating after a Skype token expires, the login page will be skipped if the underlying ``login.skype.com`` session is still alive.  In this case, the ``skypetoken`` input will be available as below.
+
     :query client_id: ``578134``
     :query redirect_uri: ``https://web.skype.com``
 
