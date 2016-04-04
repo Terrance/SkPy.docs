@@ -232,3 +232,90 @@ Messages
     Delete all message history for this client.
 
     :param id: chat thread identifier
+
+Message types
+~~~~~~~~~~~~~
+
+- ``Text``: A plain text message.
+
+- ``RichText``: A text message with rich formatting.
+
+- ``RichText/Contacts``: A message containing an embedded contact.
+
+  .. code-block:: html
+
+      <contacts><c t="s" s="joe.4" f="Joe Bloggs"/></contacts>
+
+- ``RichText/Location``: A message containing the user's location.
+
+  .. code-block:: html
+
+      <location latitude="51000000" longitude="-10000" altitude="0"
+                horizontalAccuracy="0" verticalAccuracy="0"
+                speed="0" course="0" timeStamp="1451606400"
+                address="Unknown address" pointOfInterest="">
+          <a href="https://www.bing.com/maps/...">Unknown address</a>
+      </location>
+
+- ``RichText/Media_GenericFile``: A message representing a shared file.
+
+  .. code-block:: html
+
+      <URIObject type="File.1" uri="https://api.asm.skype.com/v1/objects/0-..."
+                 url_thumbnail="https://api.asm.skype.com/v1/objects/0-.../views/thumbnail">
+          <Title>Title: file.txt</Title>
+          <Description>Description: file.txt</Description>
+          <FileSize v="84"/>
+          <OriginalName v="file.txt"/>
+          <a href="https://login.skype.com/...">https://login.skype.com/...</a>
+      </URIObject>
+
+- ``RichText/UriObject``: A shared image file.
+
+  .. code-block:: html
+
+        <URIObject type="Picture.1" uri="https://api.asm.skype.com/v1/objects/0-..."
+                   url_thumbnail="https://api.asm.skype.com/v1/objects/0-.../views/imgt1">
+            <Title/><Description/>
+            <OriginalName v="photo.jpg"/>
+            <a href="https://api.asm.skype.com/s/i?0-...">https://api.asm.skype.com/s/i?0-...</a>
+            <meta type="photo" originalName="photo.jpg"/>
+        </URIObject>
+
+- ``Event/Call``: Call-related notifications.
+
+  .. code-block:: html
+
+        <partlist type="started" alt="">
+            <part identity="joe.4"><name>Joe Bloggs</name></part>
+        </partlist>
+
+- ``ThreadActivity/AddMember``: A user was added to the group conversation.
+
+  .. code-block:: html
+
+        <addmember>
+            <eventtime>1451606400000</eventtime>
+            <initiator>8:anna.7</initiator>
+            <target>8:joe.4</target>
+        </addmember>
+
+- ``ThreadActivity/RoleUpdate``: A user's admin status was changed.
+
+  .. code-block:: html
+
+        <roleupdate>
+            <eventtime>1451606400000</eventtime>
+            <initiator>8:anna.7</initiator>
+            <target><id>8:joe.4</id><role>admin</role></target>
+        </roleupdate>
+
+- ``ThreadActivity/DeleteMember``: A user was removed from the group conversation.
+
+  .. code-block:: html
+
+        <deletemember>
+            <eventtime>1451606400000</eventtime>
+            <initiator>8:anna.7</initiator>
+            <target>8:joe.4</target>
+        </deletemember>
