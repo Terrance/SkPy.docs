@@ -68,7 +68,7 @@ Registration token
 
 .. http:post:: https://client-s.gateway.messenger.live.com/v1/users/ME/endpoints
 
-    .. note:: An empty JSON object must be provided in the body of the request.
+    .. note:: A JSON object must be provided in the body of the request, even if empty.
 
     The non-standard header ``LockAndKey`` is required, and has the following format::
 

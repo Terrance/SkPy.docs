@@ -20,6 +20,15 @@ There is a noticeable difference between being connected (at least one open endp
 
 For desktop clients, the *Invisible* status sets its endpoint to be offline, whereas *Offline* actually disconnects the endpoint from the network.
 
+Sample users
+~~~~~~~~~~~~
+
+Throughout this documentation, the following users are mentioned:
+
+- **Fred Adams**, ``fred.2`` -- the authenticated user
+- **Joe Bloggs**, ``joe.4`` -- a contact of Fred's
+- **Anna Cooper**, ``anna.7`` -- not a contact of Fred's
+
 API tokens
 ----------
 
@@ -34,11 +43,20 @@ See :ref:`logging-in` for how to obtain tokens.  Unless otherwise noted, authent
 Pagination
 ----------
 
-Some APIs, such as fetching recent conversations or messages, include a ``syncState`` URL in the response.  This allows you to fetch subsequent pages of data by calling this URL rather than the documented one.
+Some APIs, such as fetching recent conversations or messages, include ``syncState`` URLs in the response.  This allows you to fetch subsequent pages of data by calling this URL rather than the documented one.
 
-Typically (for recents), the first call will give you the 10 most recent objects of that type.  The response from the provided ``syncState`` URL would be objects 11 to 20, and a new ``syncState`` URL for objects 21 to 30, and so on.
+.. code-block:: javascript
 
-If a new object becomes available in the meantime, it is provided in the next synced call.  For example, assume we start on item 100.  The first call will provide items 100 to 91 (the 10 most recent).  The next call gives 90 to 81.  Two more items show up, 101 and 102.  The next call will now give 102, 101, and 80 to 73.
+    {...
+     '_metadata': {'backwardLink': 'https://db3-client-s.gateway.messenger.live.com/v1/...?syncState=...&view=msnp24Equivalent',
+                   'forwardLink': 'https://db3-client-s.gateway.messenger.live.com/v1/...?syncState=...&view=msnp24Equivalent',
+                   'syncState': 'https://db3-client-s.gateway.messenger.live.com/v1/...?syncState=...&view=msnp24Equivalent',
+                   'totalCount': 10},
+     ...}
+
+The ``backwardLink`` and ``forwardLink`` attributes link to the previous and next result set, whilst ``syncState`` is the current page URL, and the one needed to retrieve all results.
+
+Typically (for recents), the first call will give you the 10 most recent objects of that type.  The response from the provided ``syncState`` URL would be objects 11 to 20, and a new ``syncState`` URL for objects 21 to 30, and so on.  If a new object becomes available in the meantime, it is provided in the next synced call.  For example, assume we start on item 100.  The first call will provide items 100 to 91 (the 10 most recent).  The next call gives 90 to 81.  Two more items show up, 101 and 102.  The next call will now give 102, 101, and 80 to 73.
 
 Message formatting
 ------------------
