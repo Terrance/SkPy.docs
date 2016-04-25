@@ -282,6 +282,15 @@ Message types
             <meta type="photo" originalName="photo.jpg"/>
         </URIObject>
 
+- ``RichText/Files``: Multiple file attachments in one message.
+
+  .. code-block:: html
+
+        <files alt="sent files &quot;file1.txt&quot;, &quot;file2.txt&quot;">
+            <file size="84" index="0" tid="1000000000">file1.txt</file>
+            <file size="105" index="1" tid="2000000000">file2.txt</file>
+        </files>
+
 - ``Control/Typing``, ``Control/ClearTyping``: A user starts or stops typing in a conversation.
 
 - ``Event/Call``: Call-related notifications.
