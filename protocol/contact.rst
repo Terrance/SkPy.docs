@@ -107,16 +107,16 @@ Skype directory
 
     .. code-block:: javascript
 
-        [{'ContactCards': {'CurrentLocation': {'City': 'London',
-                                               'Country': 'gb',
-                                               'Province': 'Greater London'},
-                           'Skype': {'About': 'I am a Skype user.',
-                                     'Age': '29',
-                                     'DisplayName': 'Joe Bloggs',
-                                     'Gender': '1',
-                                     'Language': 'en',
-                                     'Rank': 0,
-                                     'SkypeName': 'joe.4'}}},
+        [{"ContactCards": {"CurrentLocation": {"City": "London",
+                                               "Country": "gb",
+                                               "Province": "Greater London"},
+                           "Skype": {"About": "I am a Skype user.",
+                                     "Age": "29",
+                                     "DisplayName": "Joe Bloggs",
+                                     "Gender": "1",
+                                     "Language": "en",
+                                     "Rank": 0,
+                                     "SkypeName": "joe.4"}}},
          ...]
 
 Auth requests
@@ -150,3 +150,35 @@ Auth requests
     Remove a user from the current user's contact list.  As above, this has no effect on auth status.
 
     :param id: user thread identifier of contact
+
+Bot users
+---------
+
+.. http:get:: https://api.aps.skype.com/v1/agents
+
+    Retrieve information about a Skype bot user.  Without an identifier, retrieves all bots.
+
+    :query agentId: UUID or username of the bot
+
+    .. code-block:: javascript
+
+        {"agentDescriptions": [{"agentId": "concierge",
+                                "agentType": "Participant",
+                                "capabilities": [],
+                                "description": "This is a built-in certified Skype bot that will help you get the most from your Skype experience by providing tips and guidance.",
+                                "developer": "Skype",
+                                "displayName": "Skype",
+                                "extra": "<a href=\"https://go.skype.com/tou\">Terms of Service</a><br/><a href=\"https://go.skype.com/privacy\">Privacy Statement</a>",
+                                "isTrusted": true,
+                                "privacyStatement": "https://go.skype.com/privacy",
+                                "starRating": 5.0,
+                                "supportedLocales": ["en-US", "en-GB"],
+                                "tos": "https://go.skype.com/tou",
+                                "userTileExtraLargeUrl": "https://az705183.vo.msecnd.net/dam/skype/media/concierge-assets/avatar/avatarcnsrg-800.png",
+                                "userTileLargeUrl": "https://az705183.vo.msecnd.net/dam/skype/media/concierge-assets/avatar/avatarcnsrg-402.png",
+                                "userTileMediumUrl": "https://az705183.vo.msecnd.net/dam/skype/media/concierge-assets/avatar/avatarcnsrg-144.png",
+                                "userTileSmallUrl": "https://az705183.vo.msecnd.net/dam/skype/media/concierge-assets/avatar/avatarcnsrg-95.png",
+                                "userTileStaticUrl": "https://az705183.vo.msecnd.net/dam/skype/media/concierge-assets/avatar/avatarcnsrg-144.png",
+                                "webpage": "https://go.skype.com/faq.skype.bot"},
+                               ...],
+         "continuationToken": null}
