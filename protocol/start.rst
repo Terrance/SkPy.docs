@@ -38,6 +38,23 @@ See :ref:`logging-in` for how to obtain tokens.  Unless otherwise noted, authent
 - APIs on ``api.asm.skype.com`` take an ``Authorization`` header of the form ``skype_token <token>``.
 - All other APIs take an ``X-SkypeToken`` header set to the Skype token.
 
+Unsupported features
+--------------------
+
+P2P group chats
+~~~~~~~~~~~~~~~
+
+These are the older variants of group conversations, referenced by blob rather than thread ID, and not stored centrally on Skype's servers.  As such, these are not available via Skype for Web.
+
+.. note:: You can "convert" a P2P chat to a threaded conversation from within a supported client, by using the ``/fork`` command.  This creates a new cloud group chat with the same participants.
+
+Multiple file transfers
+~~~~~~~~~~~~~~~~~~~~~~~
+
+It appears that file transfers involving more than one file are handled differently within downloadable clients, and are not yet available over Skype for Web (the message is replaced with "Receiving files over P2P network is not supported on Skype for Web").
+
+`This forum post <https://community.skype.com/t5/Skype-for-Web-Beta/Skype-for-web-not-recieving-files-in-cloud-based-converstation/td-p/4307232>`_ notes that there are two file transfer modes, one of which is "cloud transfer" and works with Skype for Web.  Other clients will likely be updated to support this at some point.
+
 .. _pagination:
 
 Pagination
