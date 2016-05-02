@@ -4,16 +4,35 @@ Other APIs
 Web UI options
 --------------
 
-Skype for Web allows setting some options, such as:
+Skype for Web allows configuring various server-side settings for the connected account.  This table shows how UI options map to flags and options:
 
-- ``11``: web link previews
-- ``12``: YouTube players
-- ``13``: @mention notifications
-- ``14``: image paste
+======================================  =============  =======================
+Setting                                 Value          Flags/options
+======================================  =============  =======================
+*Messaging tab*
+------------------------------------------------------------------------------
+Web link previews                       ON             11=OFF
+YouTube player                          ON             12=ON
+@mention notifications                  ON             13=OFF
+Enable image paste                      ON             14=ON
+*Privacy tab*
+------------------------------------------------------------------------------
+Allow calls from... [1]_                Anyone         OPT_SKYPE_CALL_POLICY=0
+\                                       Contacts only  OPT_SKYPE_CALL_POLICY=2
+Allow video and screen sharing from...  Anyone         15=OFF, 16=OFF
+\                                       Contacts only  15=ON,  16=OFF
+\                                       Nobody         15=OFF, 16=ON
+======================================  =============  =======================
+
+.. [1] This setting uses the named options APIs, all others use flags.
 
 .. http:get:: https://flagsapi.skype.com/api/v1
 
     Retrieve all flags set for the current user.
+
+    .. code-block:: javascript
+
+        [1, 12, 14, 15]
 
 .. http:put:: https://flagsapi.skype.com/api/v1/(int:id)
 
@@ -26,6 +45,27 @@ Skype for Web allows setting some options, such as:
     Clear (disable) a flag.
 
     :param id: flag identifier
+
+.. http:get:: https://api.skype.com/users/(str:id)/options/(str:option)
+
+    Get an option's value.  One of ``optionInt``, ``optionBin`` or ``optionStr`` will be set in the response.
+
+    :param id: user identifier of connected account
+    :param option: option name
+
+    .. code-block:: javascript
+
+        {"optionInt": 0, "optionName": "OPT_SKYPE_NAME", "optionBin": null, "optionStr": null}
+
+.. http:post:: https://api.skype.com/users/(str:id)/options/(str:option)
+
+    Set an option's value.
+
+    .. note:: There are probably ``stringValue`` and ``binaryValue`` form fields too, but no options of those types currently exist.
+
+    :param id: user identifier of connected account
+    :param option: option name
+    :form integerValue: new value to set
 
 URL scanning
 ------------
