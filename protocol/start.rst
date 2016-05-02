@@ -6,7 +6,7 @@ Terminology
 
 - **connected account** -- user currently authenticated to the API
 - **user identifier** -- user's Skype username, e.g. ``fred.2``
-- **prefix** -- conversation type: ``1`` = Messenger(?), ``8`` = user, ``19`` = group, ``28`` = internal (e.g. ``28:concierge``)
+- **prefix** -- conversation type: ``1`` = Messenger(?), ``8`` = user, ``19`` = group, ``28`` = agent/bot (e.g. ``28:concierge``)
 - **chat identifier** -- unique chat name, e.g. ``a1b2c3d4...@thread.skype``
 - **thread identifier** -- combination of prefix and user/chat identifier, e.g. ``8:fred.2``, ``19:a1b2c3d4...@thread.skype``
 - **blob** -- old-style group chat identifier (and only identifier for P2P chats)
@@ -65,10 +65,10 @@ Some APIs, such as fetching recent conversations or messages, include ``syncStat
 .. code-block:: javascript
 
     {...
-     '_metadata': {'backwardLink': 'https://db3-client-s.gateway.messenger.live.com/v1/...?syncState=...&view=msnp24Equivalent',
-                   'forwardLink': 'https://db3-client-s.gateway.messenger.live.com/v1/...?syncState=...&view=msnp24Equivalent',
-                   'syncState': 'https://db3-client-s.gateway.messenger.live.com/v1/...?syncState=...&view=msnp24Equivalent',
-                   'totalCount': 10},
+     "_metadata": {"backwardLink": "https://db3-client-s.gateway.messenger.live.com/v1/...?syncState=...&view=msnp24Equivalent",
+                   "forwardLink": "https://db3-client-s.gateway.messenger.live.com/v1/...?syncState=...&view=msnp24Equivalent",
+                   "syncState": "https://db3-client-s.gateway.messenger.live.com/v1/...?syncState=...&view=msnp24Equivalent",
+                   "totalCount": 10},
      ...}
 
 The ``backwardLink`` and ``forwardLink`` attributes link to the previous and next result set, whilst ``syncState`` is the current page URL, and the one needed to retrieve all results.
