@@ -11,4 +11,6 @@ HTTP API requests
 Miscellaneous
 -------------
 
+.. automodule:: skpy.core
+
 .. automodule:: skpy.util

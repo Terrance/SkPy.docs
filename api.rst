@@ -6,7 +6,7 @@ All classes listed below are imported into the main ``skpy`` namespace, so can b
 Core classes
 ------------
 
-.. automodule:: skpy.core
+.. automodule:: skpy.main
 
 Users and contacts
 ------------------
