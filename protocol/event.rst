@@ -130,3 +130,16 @@ Resource types
                               "version": "1451606400000"},
          "type": "Conversation",
          "version": 1451606400000}
+
+Capabilities
+------------
+
+- ``Seamless``
+
+- ``Video``
+
+- ``Audio``
+
+- ``IsMobile``
+
+- ``SmsUpgrade``

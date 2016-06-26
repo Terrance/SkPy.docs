@@ -76,6 +76,22 @@ On Skype for Web, URLs in messages are displayed as rich block links containing 
 
     :query url: address to ping for info
 
+    .. code-block:: javascript
+
+        {"category": "generic",
+         "content_type": "text/html",
+         "description": "Search the world's information, including webpages, images, videos and more.",
+         "favicon": "https://eus1-urlp.secure.skypeassets.com/static/google-32x32.ico",
+         "favicon_meta": {"height": 32, "width": 32},
+         "site": "www.google.com",
+         "size": "-1",
+         "status_code": "200",
+         "thumbnail": "https://eus1-urlp.secure.skypeassets.com/static/google-90x90.png",
+         "thumbnail_meta": {"height": 90, "width": 90},
+         "title": "Google",
+         "url": "http://google.com/",
+         "user_pic": ""}
+
 Static resources
 ----------------
 
