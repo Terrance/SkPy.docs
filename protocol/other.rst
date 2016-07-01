@@ -15,6 +15,7 @@ Web link previews                       ON             11=OFF
 YouTube player                          ON             12=ON
 @mention notifications                  ON             13=OFF
 Enable image paste                      ON             14=ON
+Typing indicator                        ON             20=OFF
 *Privacy tab*
 ------------------------------------------------------------------------------
 Allow calls from... [1]_                Anyone         OPT_SKYPE_CALL_POLICY=0
