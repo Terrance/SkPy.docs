@@ -68,6 +68,158 @@ Allow video and screen sharing from...  Anyone         15=OFF, 16=OFF
     :param option: option name
     :form integerValue: new value to set
 
+Profile and services
+--------------------
+
+The people settings endpoint provides another interface for setting account-wide options.  Currently the only known one here is ``Skype.AutoBuddy``, for automatically adding address book contacts to the Skype contact list.
+
+.. http:get:: https://people.directory.live.com/people/account/settings
+
+    Retrieve all set options.
+
+    .. note:: ``Skype.AutoBuddy`` is only returned if true.  The value is also returned as a string.
+
+    :reqheader X-AppId: ``5c7a1e34-3a23-4a36-b2e6-7aa15be85f07``
+    :reqheader X-SerializeAs: ``purejson``
+
+    .. code-block:: javascript
+
+        {"Settings": [{"Name": "Skype.AutoBuddy", "Value": "true"}]}
+
+.. http:post:: https://people.directory.live.com/people/account/settings
+
+    Update one or more options.
+
+    .. note:: Boolean values are passed as booleans here, despite being retrieved as a string.
+
+    :reqheader X-AppId: ``5c7a1e34-3a23-4a36-b2e6-7aa15be85f07``
+    :reqheader X-SerializeAs: ``purejson``
+    :reqjsonarr Settings: subset of data to add or edit
+
+The profile provides access to contact email addresses and phone numbers on the account.
+
+.. http:get:: https://pf.directory.live.com/profile/mine/System.ShortCircuitProfile.json
+
+    Retrieve all profile information for the connected account.
+
+    :reqheader PS-ApplicationId: ``5c7a1e34-3a23-4a36-b2e6-7aa15be85f07``
+
+    .. code-block:: javascript
+
+        {"TraceGraph": null,
+         "Views": [{"Attributes": [{"Acl": null,
+                                    "Name": "PersonalContactProfile.Emails",
+                                    "Value": [{"Acl": null,
+                                               "AddSearchableApplications": null,
+                                               "DeleteSearchableApplications": null,
+                                               "HasSearchableApplications": true,
+                                               "Label": "Email_Other",
+                                               "Name": "fred.adams@live.co.uk",
+                                               "Searchable": true,
+                                               "SearchableApplications": [{"Name": "Skype"}],
+                                               "Source": "Msa",
+                                               "State": "Verified"}]},
+                                   {"Acl": null,
+                                    "Name": "PersonalContactProfile.Emails.LastModified",
+                                    "Value": "/Date(1451606400000)/"},
+                                   {"Acl": null,
+                                    "Name": "PhoneVerificationQosAlert",
+                                    "Value": 0},
+                                   {"Acl": null,
+                                    "Name": "PersonalContactProfile.Phones",
+                                    "Value": [{"Acl": "",
+                                               "AddSearchableApplications": null,
+                                               "Country": "UK-44",
+                                               "CountryName": "UK",
+                                               "DeleteSearchableApplications": null,
+                                               "HasSearchableApplications": false,
+                                               "Label": "Phone_Other",
+                                               "Name": "07012345678",
+                                               "Searchable": false,
+                                               "SearchableApplications": [],
+                                               "Source": "Msa",
+                                               "State": "Verified",
+                                               "SuggestedVerifyMethod": "Sms"}]}],
+                    "Id": {"Cid": "-9000000000000000000", "Puid": null}}]}
+
+.. http:post:: https://pf.directory.live.com/profile/mine/System.ShortCircuitProfile.json
+
+    Make changes to a part of the profile information.
+
+    :reqheader PS-ApplicationId: ``5c7a1e34-3a23-4a36-b2e6-7aa15be85f07``
+    :reqjsonarr Attributes: subset of data to add or edit
+
+Services are additional or paid featured applied to an account, such as voicemail, local numbers, and Skype minutes.
+
+.. http:get:: https://consumer.entitlement.skype.com/users/(string:id)/services
+
+    Retrieve a list of all active services.
+
+    :query id: user identifier of connected account
+    :reqheader Accept: ``application/json; ver=3.0``
+
+    .. code-block:: javascript
+
+        [{"active": false,
+          "attributes": {"currency": "GBP"},
+          "balance": 0,
+          "balanceFormatted": "£0.00",
+          "end": null,
+          "href": "/users/fred.2/services/pstn",
+          "id": "pstn",
+          "reset": null,
+          "service": "pstn",
+          "start": null},
+         {"active": true,
+          "end": "2036-01-01T00:00:00+00:00",
+          "href": "/users/fred.2/services/voicemail",
+          "id": "voicemail",
+          "reset": null,
+          "service": "voicemail",
+          "start": "2016-01-01T00:00:00+00:00"},
+         {"active": true,
+          "end": "2016-01-01T00:00:00+00:00",
+          "href": "/users/fred.2/services/pstn_transfer",
+          "id": "pstn_transfer",
+          "reset": null,
+          "service": "pstn_transfer",
+          "start": "2016-01-01T00:00:00+00:00"},
+         {"active": true,
+          "attributes": {"monthly_minutes": 60,
+                         "package": "api_300-region-landline-world-60"},
+          "balance": 60,
+          "data": {"calling_plan": "api_300-region-landline-world",
+                   "href": "/offers/calling-legacy/skus/package-api_300-region-landline-world-60/subscriptions/package-api_300-region-landline-world-60-1m",
+                   "nameFormatted": "World minutes for Office 365 60 mins 1 month"},
+          "end": "2017-01-01T00:00:00+00:00",
+          "href": "/users/fred.2/services/package.api_300-region-landline-world-60",
+          "id": "package.api_300-region-landline-world-60",
+          "quota": 60,
+          "reset": "2016-02-01T00:00:00+00:00",
+          "service": "package",
+          "start": "2016-01-01T00:00:00+00:00"}]
+
+.. http:get:: https://consumer.entitlement.skype.com/users/(string:id)/services/(string:service)
+
+    Fetch details for a single service.
+
+    :query id: user identifier of connected account
+    :query service: active service identifier
+    :reqheader Accept: ``application/json; ver=3.0``
+
+    .. code-block:: javascript
+
+        {"active": false,
+         "attributes": {"currency": "GBP"},
+         "balance": 0,
+         "balanceFormatted": "£0.00",
+         "end": null,
+         "href": "/users/fred.2/services/pstn",
+         "id": "pstn",
+         "reset": null,
+         "service": "pstn",
+         "start": null}
+
 URL scanning
 ------------
 
