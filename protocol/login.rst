@@ -32,6 +32,43 @@ This is needed to obtain a registration token for most API needs, but is also us
     :form timezone_field: current timezone, in the format ``+hh|mm``
     :form js_time: UNIX timestamp, in seconds, must be integer
 
+Microsoft account
+~~~~~~~~~~~~~~~~~
+
+Authentication with a Microsoft account requires calling out to the MS OAuth page, and retrieving the token from there.
+
+.. http:get:: https://login.skype.com/login/oauth/microsoft
+
+    This will redirect to ``login.live.com``.  Collect the value of the hidden field named ``PPFT``.
+
+    :query client_id: ``578134``
+    :query redirect_uri: ``https://web.skype.com``
+    :resheader Cookie: contains ``MSPRequ`` and ``MSPOK``, both required for the next step
+
+.. http:post:: https://login.live.com/ppsecure/post.srf
+
+    If all is well, a hidden field with identifier ``t`` will contain a token for the last step.
+
+    :query wa: ``wsignin1.0``
+    :query wp: ``MBI_SSL``
+    :query wreply: ``https://lw.skype.com/login/oauth/proxy?client_id=578134&site_name=lw.skype.com&redirect_uri=https%3A%2F%2Fweb.skype.com%2F``
+    :reqheader Set-Cookie: include ``MSPRequ`` and ``MSPOK`` as obtained earlier, and ``CkTst`` with a timestamp in the standard format
+    :form login: Microsoft account email address
+    :form passwd: Microsoft account password
+    :form PPFT: as obtained from the hidden field
+
+.. http:post:: https://web.skype.com/login/microsoft
+
+    The Skype token and expiry can be retrieved in the same fields as with a username/password login.
+
+    :query client_id: ``578134``
+    :query redirect_uri: ``https://web.skype.com``
+    :form client_id: ``578134``
+    :form redirect_uri: ``https://web.skype.com``
+    :form oauthPartner: ``999``
+    :form site_name: ``lw.skype.com``
+    :form t: as obtained earlier
+
 Guest authentication
 ~~~~~~~~~~~~~~~~~~~~
 
