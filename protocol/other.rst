@@ -255,8 +255,6 @@ Static resources
 
 Skype provides a single JSON file containing all emoticons, animations and videos.  Each release (i.e. when any resources are added or removed) has a different hash.
 
-.. note:: SkPy currently comes bundled with emoticons from hash ``21280e53cdb24cde94cf4d4d0f5cb7c7`` (shortly after Christmas emoticons were added).
-
 .. http:get:: https://static-asm.secure.skypeassets.com/pes/v1/configs/(string:hash)/views/en
 
     Retrieve a list of all resources, along with their shortcuts and visibility.
