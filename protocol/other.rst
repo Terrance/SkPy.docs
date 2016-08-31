@@ -9,6 +9,10 @@ Skype for Web allows configuring various server-side settings for the connected 
 ======================================  =============  =======================
 Setting                                 Value          Flags/options
 ======================================  =============  =======================
+*Notifications tab*
+------------------------------------------------------------------------------
+Notifications                           ON             21=OFF
+Sounds                                  ON             22=OFF
 *Messaging tab*
 ------------------------------------------------------------------------------
 Web link previews                       ON             11=OFF
@@ -16,6 +20,7 @@ YouTube player                          ON             12=ON
 @mention notifications                  ON             13=OFF
 Enable image paste                      ON             14=ON
 Typing indicator                        ON             20=OFF
+Emoticon suggestions                    ON             23=ON
 *Privacy tab*
 ------------------------------------------------------------------------------
 Allow calls from... [1]_                Anyone         OPT_SKYPE_CALL_POLICY=0
