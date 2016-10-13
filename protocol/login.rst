@@ -3,39 +3,12 @@
 Logging in
 ==========
 
-Skype token
------------
+Microsoft account flow
+~~~~~~~~~~~~~~~~~~~~~~
 
-This is needed to obtain a registration token for most API needs, but is also used as-is in some Skype user and contact endpoints.
+Authentication with either a Skype username or a Microsoft account requires calling out to the MS OAuth page, and retrieving the Skype token.
 
-.. http:get:: https://login.skype.com/login
-
-    Pull out the ``pie`` and ``etm`` values (each a hidden input with a corresponding ``id`` and ``name``).
-
-    If an input field with id ``captcha`` exists, a Captcha must be completed to login.
-
-    .. note:: When reauthenticating after a Skype token expires, the login page will be skipped if the underlying ``login.skype.com`` session is still alive.  In this case, the ``skypetoken`` input will be available as below.
-
-    :query client_id: ``578134``
-    :query redirect_uri: ``https://web.skype.com``
-
-.. http:post:: https://login.skype.com/login
-
-    Skype token can be obtained from a hidden input with name ``skypetoken``.  The expiry timestamp is in a hidden input named ``expires_in``.
-
-    :query client_id: ``578134``
-    :query redirect_uri: ``https://web.skype.com``
-    :form username: Skype username of the connecting account
-    :form password: password of the connecting account
-    :form pie: as above
-    :form etm: as above
-    :form timezone_field: current timezone, in the format ``+hh|mm``
-    :form js_time: UNIX timestamp, in seconds, must be integer
-
-Microsoft account
-~~~~~~~~~~~~~~~~~
-
-Authentication with a Microsoft account requires calling out to the MS OAuth page, and retrieving the token from there.
+This is used to obtain a registration token for the messaging APIs, but is also used as-is in user and static endpoints.
 
 .. http:get:: https://login.skype.com/login/oauth/microsoft
 
@@ -53,8 +26,8 @@ Authentication with a Microsoft account requires calling out to the MS OAuth pag
     :query wp: ``MBI_SSL``
     :query wreply: ``https://lw.skype.com/login/oauth/proxy?client_id=578134&site_name=lw.skype.com&redirect_uri=https%3A%2F%2Fweb.skype.com%2F``
     :reqheader Set-Cookie: include ``MSPRequ`` and ``MSPOK`` as obtained earlier, and ``CkTst`` with a timestamp in the standard format
-    :form login: Microsoft account email address
-    :form passwd: Microsoft account password
+    :form login: Skype username or Microsoft account email address
+    :form passwd: corresponding account password
     :form PPFT: as obtained from the hidden field
 
 .. http:post:: https://web.skype.com/login/microsoft
@@ -72,7 +45,7 @@ Authentication with a Microsoft account requires calling out to the MS OAuth pag
 Guest authentication
 ~~~~~~~~~~~~~~~~~~~~
 
-Skype recently added the ability for guests to `access a group conversation without an account <https://blogs.skype.com/2016/03/14/skype-for-web-now-call-mobile-phones-and-landlines-plus-so-much-more/>`_.
+Skype also supports the notion of a guest, who can access a conversation from an invite, without a Skype account.
 
 A guest account differs from regular accounts in that:
 
