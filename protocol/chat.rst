@@ -21,7 +21,7 @@ Conversations
                             "lastMessage": {"clientmessageid": "1451606399999",
                                             "composetime": "2016-01-01T00:00:00.000Z",
                                             "content": "Hi!",
-                                            "conversationLink": "https://client-s.gateway.messenger.live.com/v1/users/ME/conversations/8:joe.4@thread.skype",
+                                            "conversationLink": "https://client-s.gateway.messenger.live.com/v1/users/ME/conversations/8:joe.4",
                                             "from": "https://client-s.gateway.messenger.live.com/v1/users/ME/contacts/8:joe.4",
                                             "id": "1451606400000",
                                             "messagetype": "Text",
@@ -300,6 +300,36 @@ Message types
         <partlist type="started" alt="">
             <part identity="joe.4"><name>Joe Bloggs</name></part>
         </partlist>
+
+- ``ThreadActivity/TopicUpdate``: A group conversation topic change.
+
+  .. code-block:: html
+
+        <topicupdate>
+            <eventtime>1451606400000</eventtime>
+            <initiator>8:joe.4</initiator>
+            <value>Team chat</value>
+        </topicupdate>
+
+- ``ThreadActivity/JoiningEnabledUpdate``: A change to joining a group conversation by link.
+
+  .. code-block:: html
+
+        <joiningenabledupdate>
+            <eventtime>1451606400000</eventtime>
+            <initiator>8:anna.7</initiator>
+            <value>true</value>
+        </joiningenabledupdate>
+
+- ``ThreadActivity/HistoryDisclosedUpdate``: A group conversation topic change.
+
+  .. code-block:: html
+
+        <historydisclosedupdate>
+            <eventtime>1451606400000</eventtime>
+            <initiator>8:joe.4</initiator>
+            <value>false</value>
+        </historydisclosedupdate>
 
 - ``ThreadActivity/AddMember``: A user was added to the group conversation.
 
