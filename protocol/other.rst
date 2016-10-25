@@ -18,9 +18,13 @@ Sounds                                  ON             22=OFF
 Web link previews                       ON             11=OFF
 YouTube player                          ON             12=ON
 @mention notifications                  ON             13=OFF
-Enable image paste                      ON             14=ON
+Enable image paste (removed)            ON             14=ON
 Typing indicator                        ON             20=OFF
 Emoticon suggestions                    ON             23=ON
+Show emoticons                          ON             24=OFF
+Show animated emoticons                 ON             25=OFF
+Show large emoticons                    ON             26=OFF
+Pin favorites (removed)                 ON             27=OFF
 *Privacy tab*
 ------------------------------------------------------------------------------
 Allow calls from... [1]_                Anyone         OPT_SKYPE_CALL_POLICY=0
@@ -28,6 +32,8 @@ Allow calls from... [1]_                Anyone         OPT_SKYPE_CALL_POLICY=0
 Allow video and screen sharing from...  Anyone         15=OFF, 16=OFF
 \                                       Contacts only  15=ON,  16=OFF
 \                                       Nobody         15=OFF, 16=ON
+*Personalization tab*
+Dark theme                              ON             28=ON
 ======================================  =============  =======================
 
 .. [1] This setting uses the named options APIs, all others use flags.
