@@ -10,7 +10,7 @@ The easiest way to get started is by installing with ``pip``::
 
 SkPy can also be installed straight from the repo.  Once cloned, fetch the requirements if not already present, then run the setup script::
 
-    $ git clone git@github.com:OllieTerrance/SkPy.git
+    $ git clone git@github.com:Terrance/SkPy.git
     $ cd SkPy
     $ pip install -r requirements.txt
     $ python setup.py install
@@ -25,21 +25,12 @@ Connecting to Skype
 A connection to Skype is made when first creating a :class:`.Skype` instance::
 
     >>> from skpy import Skype
-    >>> from getpass import getpass # You probably don't want your password shown in plain text!
+    >>> from getpass import getpass
     >>> Skype("fred.2", getpass())
-    Password: 
+    Password:
     Skype(userId='fred.2')
 
-By specifying a token file, session information is cached and can be reused without needing credentials again::
-
-    >>> Skype("fred.2", getpass(), ".tokens-fred.2")
-    Password: 
-    Skype(userId='fred.2')
-
-    ...
-
-    >>> Skype(tokenFile=".tokens-fred.2") # No username/password needed this time.
-    Skype(userId='fred.2')
+In this form, the best authentication method will be chosen for you (SOAP authentication for Microsoft accounts with an email address as the username, or Live/legacy authentication for accounts with Skype usernames and phone numbers).
 
 .. warning::
 
@@ -52,25 +43,62 @@ Many requests that retrieve data from the Skype API are cached for you, to avoid
 Advanced connections
 ~~~~~~~~~~~~~~~~~~~~
 
-Depending on the interface being provided by the user, it may not be desirable to require credentials when instantiating the :class:`.Skype` class.  In this case, pass ``connect=False`` to produce an as-yet-unconnected instance::
+Depending on the interface being provided by the user, it may not be desirable to require credentials when instantiating the :class:`.Skype` class.  In this case, pass no arguments to produce an as-yet-unconnected instance::
 
-    >>> sk = Skype(connect=False)
+    >>> sk = Skype()
     >>> sk.conn
     SkypeConnection(connected=False)
 
-From there, the Skype connection object :attr:`.Skype.conn` can be manipulated directly, to set a token file or a username/password pair, or to sign in as a guest::
+After you've obtained credentials from the user, the Skype connection object :attr:`.Skype.conn` can be manipulated directly, to set a username/password pair and the desired authentication mechanism, or to sign in as a guest::
 
-    >>> from skpy import SkypeAuthException
-    >>> sk.conn.setTokenFile(".tokens-app")
-    >>> try:
-    ...     sk.conn.readToken()
-    >>> except SkypeAuthException:
-    ...     # Prompt the user for their credentials.
-    ...     sk.conn.setUserPwd(username, password)
-    ...     sk.conn.getSkypeToken()
-    ...
+    >>> # Auto-detect the best authentication method:
+    >>> sk.conn.setUserPwd("fred.2", getpass())
+    Password:
+    >>> sk.getSkypeToken()
     >>> sk.conn
     SkypeConnection(userId='fred.2', connected=True, guest=False)
+
+    >>> # Or use a Microsoft account, including 2FA-protected accounts:
+    >>> sk.conn.soapLogin("fred.adams@outlook.com", getpass())
+    Password:
+    >>> sk.conn
+    SkypeConnection(userId='fred.2', connected=True, guest=False)
+
+    >>> # Or use legacy authentication with a Skype username or phone number:
+    >>> sk.conn.liveLogin("fred.2", getpass())
+    Password:
+    >>> sk.conn
+    SkypeConnection(userId='fred.2', connected=True, guest=False)
+
+    >>> # Or join a conversation as a guest:
+    >>> sk.conn.guestLogin("https://join.skype.com/abcdefghijkl", "Fred")
+    >>> sk.conn
+    SkypeConnection(userId='guest:a1b2c3d4...', connected=True, guest=True)
+
+Authentication errors
+~~~~~~~~~~~~~~~~~~~~~
+
+Logging in with a Microsoft account is a fickle operation, and you may receive one of these error messages whilst trying to login.
+
+SOAP authentication
+^^^^^^^^^^^^^^^^^^^
+
+wsse:FailedAuthentication - Authentication Failure
+    The email address or password is incorrect.  You should use the Microsoft account's email address, not a phone number or Skype username.  If two-factor authentication is enabled, you should provide an application-specific password.
+
+wsse:FailedAuthentication - Profile accrual is required
+    Could be caused by the Microsoft account's primary alias not being an email address.  You may need to enable Outlook on the account if it was originally registered without email.
+
+Live authentication
+^^^^^^^^^^^^^^^^^^^
+
+Account action required (https://...), login with a web browser first
+    An interstitial page is blocking the login flow.  SkPy will not click through any authentication screens for you, so you must login in a browser to see and complete them yourself.  This may include terms of service changes, account security notices, and other prompts from Microsoft during authentication.  Some of these may only show up in the browser if you use the same IP address as where SkPy is connecting from.
+
+Session expiry
+~~~~~~~~~~~~~~
+
+When your session expires, you'll need to reauthenticate to continue.  Assuming you provided credentials at startup, these will be reused if needed and your session should automatically refresh.  Whilst token files can be written, these are usually no longer effective due to the required round-trip of the Microsoft login page, for which cookies and session data are not stored outside of an active session.
 
 Retrieving contacts
 -------------------
@@ -87,7 +115,7 @@ Each :class:`.Skype` instance has a :attr:`contacts <.Skype.contacts>` field.  I
 
 Note also the special :attr:`.Skype.user` field, a contact object for the connected account::
 
-    >>> sk.contacts["fred.2"] # It's you!
+    >>> sk.user # It's you!
     SkypeContact(id='fred.2', name=Name(first='Fred', last='Adams'), ...)
     >>> sk.contacts["fred.2"] is sk.user
     True
@@ -140,7 +168,7 @@ In order to react to incoming messages and event, an event loop is necessary.  T
     >>> class MySkype(SkypeEventLoop):
     ...     def onEvent(self, event):
     ...         print(repr(event))
-    ... 
+    ...
     >>> MySkype(tokenFile=".tokens-fred.2", autoAck=True)
     MySkype(userId='fred.2')
 
