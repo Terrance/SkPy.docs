@@ -1,33 +1,14 @@
 Getting started
 ===============
 
-Terminology
------------
-
-- **connected account** -- user currently authenticated to the API
-- **user identifier** -- user's Skype username, e.g. ``fred.2``
-- **prefix** -- conversation type: ``1`` = Messenger(?), ``8`` = user, ``19`` = group, ``28`` = agent/bot (e.g. ``28:concierge``)
-- **chat identifier** -- unique chat name, e.g. ``a1b2c3d4...@thread.skype``
-- **thread identifier** -- combination of prefix and user/chat identifier, e.g. ``8:fred.2``, ``19:a1b2c3d4...@thread.skype``
-- **blob** -- old-style group chat identifier (and only identifier for P2P chats)
-
 Endpoints
-~~~~~~~~~
+---------
 
 An endpoint represents a single connection between Skype and a client.  A user may have multiple endpoints connected, for example if running Skype on their desktop and their phone.  Similarly, connecting through SkPy creates a new endpoint.
 
 There is a noticeable difference between being connected (at least one open endpoint) and being available (at least one client set status to *Online*).  Skype for Web makes the distinction by showing an empty white circle when all clients claim to be offline, but no circle at all for no endpoints connected.
 
 For desktop clients, the *Invisible* status sets its endpoint to be offline, whereas *Offline* actually disconnects the endpoint from the network.
-
-Sample users
-~~~~~~~~~~~~
-
-Throughout this documentation, the following users are mentioned:
-
-- **Fred Adams**, ``fred.2`` -- the authenticated user
-- **Joe Bloggs**, ``joe.4`` -- a contact of Fred's
-- **Anna Cooper**, ``anna.7`` -- not a contact of Fred's
 
 API tokens
 ----------

@@ -1,5 +1,3 @@
-.. _skype-protocol:
-
 Skype protocol
 ==============
 

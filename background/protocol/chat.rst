@@ -234,7 +234,7 @@ Messages
     :param id: chat thread identifier
 
 Message types
-~~~~~~~~~~~~~
+-------------
 
 - ``Text``: A plain text message.
 
