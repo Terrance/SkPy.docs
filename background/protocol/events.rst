@@ -1,5 +1,5 @@
-Events
-======
+Event endpoints
+===============
 
 One endpoint represents one client for the connecting user.  A user may have many endpoints connected at once, for example a laptop, a phone, a tablet and so on.  Each client and endpoint has its own availability status and event subscriptions.
 

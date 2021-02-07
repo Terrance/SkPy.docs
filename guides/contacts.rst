@@ -1,7 +1,12 @@
 Working with contacts
 =====================
 
-Each :class:`.Skype` instance has a :attr:`contacts <.Skype.contacts>` field, an instance of :class:`.SkypeContacts`.  To find a specific contact or user, use key lookups with user identifiers::
+Each :class:`.Skype` instance has a :attr:`contacts <.Skype.contacts>` field, an instance of :class:`.SkypeContacts`.
+
+Finding specific users
+----------------------
+
+To find a specific contact or user, use key lookups with user identifiers::
 
     >>> sk = Skype(...)
     >>> sk.contacts
@@ -20,12 +25,23 @@ Note also the special :attr:`.Skype.user` field, a contact object for the connec
 
 Generally, you will get less information out of :class:`.SkypeUser` objects as they only access public info.  :class:`.SkypeContact` objects will be provided when applicable.
 
+Iterating contacts
+------------------
+
 You can also iterate over :class:`.SkypeContacts` in order to loop through all contacts of the connected account::
 
     >>> for contact in sk.contacts:
     ...     print(contact.id)
     ...
     joe.4
-    mary.9
+    daisy.5
+
+Contact requests
+----------------
 
 Incoming contact requests can be obtained through :meth:`.SkypeContacts.requests`, which returns a list of requests.  You can call one of :meth:`.SkypeRequest.accept` and :meth:`.SkypeRequest.reject` to act on a given request.
+
+For example, to automatically accept requests::
+
+    >>> for request in sk.contacts.requests():
+    ...     request.accept()

@@ -1,6 +1,11 @@
 Terminology
 ===========
 
+For internal consistency, this documentation uses some sample data, and unofficial names for certain features of the protocol.
+
+Definitions
+-----------
+
 Connected account
     user currently authenticated to the API
 User identifier
@@ -13,7 +18,7 @@ Prefix
         | ``19`` = group
         | ``28`` = agent/bot account (e.g. ``28:concierge``)
 Chat identifier
-    unique chat name, e.g. ``a1b2c3d4...@thread.skype``
+    unique chat name, e.g. ``a1b2c3d4...@thread.skype`` or a user identifier
 Thread identifier
     combination of prefix and user/chat identifier, e.g. ``8:fred.2``, ``19:a1b2c3d4...@thread.skype``
 Blob
@@ -22,8 +27,9 @@ Blob
 Sample users
 ------------
 
-Throughout this documentation, the following users are mentioned:
+The following users are mentioned:
 
 - **Fred Adams**, ``fred.2`` -- the authenticated user
 - **Joe Bloggs**, ``joe.4`` -- a contact of Fred's
 - **Anna Cooper**, ``anna.7`` -- not a contact of Fred's
+- **Daisy Dean**, ``daisy.5`` -- another contact of Fred's

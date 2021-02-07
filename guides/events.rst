@@ -1,7 +1,12 @@
 Event processing
 ================
 
-In order to react to incoming messages and event, an event loop is necessary.  The :class:`.SkypeEventLoop` class (a subclass of :class:`.Skype`) provides a base to write event processing programs.  You should implement :meth:`.SkypeEventLoop.onEvent` to add your own event handling code, and call :meth:`.SkypeEventLoop.loop` from the top level to execute your loop forever.
+In order to react to incoming messages and event, an event loop is needed.
+
+Implementing an event loop
+--------------------------
+
+The :class:`.SkypeEventLoop` class (a subclass of :class:`.Skype`) provides a base to write event processing programs.  You should implement :meth:`.SkypeEventLoop.onEvent` to add your own event handling code, and call :meth:`.SkypeEventLoop.loop` from the top level to execute your loop forever.
 
 A complete script may look like the following::
 
@@ -17,7 +22,10 @@ A complete script may look like the following::
 
     if __name__ == "__main__":
         sk = MySkype("fred.2", getpass(), autoAck=True)
+        sk.subscribePresence() # Only if you need contact presence events.
         sk.loop()
+
+Note that contact presence events are not sent by default, and you must opt into them by calling :meth:`.Skype.subscribePresence` before :meth:`.SkypeEventLoop.loop`.
 
 When ran, this will print each event as it's received::
 
@@ -30,4 +38,7 @@ When ran, this will print each event as it's received::
     SkypeEndpointEvent(id=1004, ..., userId='anna.7')
     ...
 
-Note that contact presence events are no longer sent by default, and you must opt into them by calling :meth:`.Skype.subscribePresence` before :meth:`.SkypeEventLoop.loop`.
+Acknowledgements
+----------------
+
+Each event can be acknowledged, to tell Skype it has been processed and avoid it being resent.  If you don't want or need to think about this, just set ``autoAck=True`` when creating your class instance.  To handle acknowledgements manually, you need to call :meth:`.SkypeEvent.ack` on each event.

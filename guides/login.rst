@@ -1,7 +1,44 @@
-Authentication
-==============
+Logging in
+==========
 
-A connection to Skype is made when first creating a :class:`.Skype` instance::
+SkPy provides two ways to authenticate to Skype: SOAP and Live login.
+
+Providers
+---------
+
+SOAP login is preferred; it's a newer authentication flow that supports accounts using two-factor authentication, however it requires Skype accounts to be linked to a Microsoft account with a working Outlook.com email address.
+
+Live authentication is a legacy flow that automates the browser login page; it's brittle and known to cause issues for some users, but it works for older accounts without a linked Microsoft account, and accepts a wider range of credentials.
+
+=================================  ======  ======
+Features                           SOAP    Live
+=================================  ======  ======
+**Valid usernames**
+-------------------------------------------------
+Email address                      ✔       ✔
+Phone number                               ✔
+Skype username                             ✔
+
+**Valid passwords**
+-------------------------------------------------
+Account password                   ✔ [1]_  ✔
+Application-specific token         ✔
+
+**Restrictions**
+-------------------------------------------------
+Supports 2FA-enabled accounts      ✔
+Supports accounts without MS link          ✔
+=================================  ======  ======
+
+.. [1] Only for accounts without two-factor authentication enabled.
+
+.. seealso::
+    :ref:`Authentication` -- for troubleshooting failed logins.
+
+Default handling
+----------------
+
+A connection to Skype is made when first creating a :class:`.Skype` instance, if you provide a username and password::
 
     >>> from skpy import Skype
     >>> from getpass import getpass
@@ -11,10 +48,8 @@ A connection to Skype is made when first creating a :class:`.Skype` instance::
 
 In this form, the best authentication method will be chosen for you (SOAP authentication for Microsoft accounts with an email address as the username, or Live/legacy authentication for accounts with Skype usernames and phone numbers).
 
-.. warning::
-    If you make too many authentication attempts, you may become temporarily rate limited by the Skype API, or be required to complete a captcha to continue.  For the latter, this needs to be done in a browser with a matching IP address.
-
-    To avoid this, you should reuse the Skype token where possible.  A token will usually only last for 24 hours (even ``web.skype.com`` forces re-authentication after that time), though you can check the expiry with :attr:`.SkypeConnection.tokenExpiry`.
+Manual control
+--------------
 
 Depending on the interface being provided by the user, it may not be desirable to require credentials when instantiating the :class:`.Skype` class.  In this case, pass no arguments to produce an as-yet-unconnected instance::
 

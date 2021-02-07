@@ -1,7 +1,7 @@
 Skype protocol
 ==============
 
-This page hopes to provide an unofficial documentation for interacting with the Skype HTTP APIs.
+This section hopes to provide an unofficial documentation for interacting with the Skype HTTP APIs.
 
 .. warning::
     Most of the information here is a combination of guesswork, and analysis of Skype for Web.  There is no official documentation, and therefore no guarantee that the definitions below are accurate or complete.
@@ -10,9 +10,8 @@ This page hopes to provide an unofficial documentation for interacting with the 
 
 .. toctree::
 
-    start
-    login
-    event
-    contact
-    chat
-    other
+    credentials
+    events
+    contacts
+    chats
+    misc

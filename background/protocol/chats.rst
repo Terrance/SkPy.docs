@@ -1,11 +1,11 @@
-Conversations
-=============
+Conversation endpoints
+======================
 
 .. http:get:: https://client-s.gateway.messenger.live.com/v1/users/ME/conversations
 
     This returns an array of conversations that the current user has most recently interacted with.  The ``lastMessage`` field holds a message object in the same format as retrieved from ``/v1/users/ME/conversations/(id)/messages``.
 
-    .. note:: This endpoint is :ref:`paginated <pagination>`.
+    .. note:: This endpoint is :ref:`paginated <Pagination>`.
 
     :query startTime: ``0``
     :query view: ``msnp24Equivalent``
@@ -192,7 +192,7 @@ Messages
 
     Retrieve the most recent messages from the conversation.
 
-    .. note:: This endpoint is :ref:`paginated <pagination>`.
+    .. note:: This endpoint is :ref:`paginated <Pagination>`.
 
     :param id: chat thread identifier
 
@@ -360,3 +360,28 @@ Message types
             <initiator>8:anna.7</initiator>
             <target>8:joe.4</target>
         </deletemember>
+
+Message formatting
+------------------
+
+Different clients seem to support varying amounts of HTML formatting tags, as shown in this compatibility table:
+
+=====================================================  ======  =======  ===  =======
+Code                                                   Web     Windows  Mac  Android
+=====================================================  ======  =======  ===  =======
+``<b>Bold</b>``                                        ✔       ✔        ✔    ✔
+``<i>Italic</i>``                                      ✔ [1]_  ✔        ✔    ✔
+``<u>Underline</u>``                                           ✔
+``<s>Strikethrough</s>``                               ✔ [1]_  ✔        ✔    ✔
+``<font color="#ff0000">Colour</font>``                ✔       ✔             ✔
+``<font size="24">Size</font>``                                ✔
+``<blink>Blink</blink>``                                       ✔
+``<center>Centre</center>``                                    ✔        ✔
+``<a href="http://google.com">http://google.com</a>``  ✔       ✔        ✔    ✔
+``<a href="http://google.com">Custom link</a>`` [2]_   ✔       ✔        ✔    ✔
+``<pre>Preformatted</pre>``                            ✔ [1]_  ✔        ✔    ✔
+=====================================================  ======  =======  ===  =======
+
+.. [1] Only works if the correct ``raw_pre`` and ``raw_post`` attributes are specified.
+
+.. [2] Skype may block sending the message at server level (error message "Failure due to: BlockedContent") if it impersonates another link, e.g. ``<a href="http://youtube.com">http://google.com</a>``.

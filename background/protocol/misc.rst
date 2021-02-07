@@ -1,5 +1,32 @@
-Other APIs
-==========
+Miscellaneous
+=============
+
+Endpoints
+---------
+
+An endpoint represents a single connection between Skype and a client.  A user may have multiple endpoints connected, for example if running Skype on their desktop and their phone.  Similarly, connecting through SkPy creates a new endpoint.
+
+There is a noticeable difference between being connected (at least one open endpoint) and being available (at least one client set status to *Online*).  Skype for Web makes the distinction by showing an empty white circle when all clients claim to be offline, but no circle at all for no endpoints connected.
+
+For desktop clients, the *Invisible* status sets its endpoint to be offline, whereas *Offline* actually disconnects the endpoint from the network.
+
+Pagination
+----------
+
+Some APIs, such as fetching recent conversations or messages, include ``syncState`` URLs in the response.  This allows you to fetch subsequent pages of data by calling this URL rather than the documented one.
+
+.. code-block:: javascript
+
+    {...
+     "_metadata": {"backwardLink": "https://db3-client-s.gateway.messenger.live.com/v1/...?syncState=...&view=msnp24Equivalent",
+                   "forwardLink": "https://db3-client-s.gateway.messenger.live.com/v1/...?syncState=...&view=msnp24Equivalent",
+                   "syncState": "https://db3-client-s.gateway.messenger.live.com/v1/...?syncState=...&view=msnp24Equivalent",
+                   "totalCount": 10},
+     ...}
+
+The ``backwardLink`` and ``forwardLink`` attributes link to the previous and next result set, whilst ``syncState`` is the current page URL, and the one needed to retrieve all results.
+
+Typically (for recents), the first call will give you the 10 most recent objects of that type.  The response from the provided ``syncState`` URL would be objects 11 to 20, and a new ``syncState`` URL for objects 21 to 30, and so on.  If a new object becomes available in the meantime, it is provided in the next synced call.  For example, assume we start on item 100.  The first call will provide items 100 to 91 (the 10 most recent).  The next call gives 90 to 81.  Two more items show up, 101 and 102.  The next call will now give 102, 101, and 80 to 73.
 
 Web UI options
 --------------
@@ -276,3 +303,20 @@ There appears to be several analytics/tracking tools in place on Skype for Web, 
 - ``c1.microsoft.com``
 - ``go.trouter.io`` and ``*.drip.trouter.io``
 - ``pipe.skype.com``
+
+Unsupported features
+--------------------
+
+P2P group chats
+~~~~~~~~~~~~~~~
+
+These are the older variants of group conversations, referenced by blob rather than thread ID, and not stored centrally on Skype's servers.  As such, these are not available via Skype for Web.
+
+.. note:: You can "convert" a P2P chat to a threaded conversation from within a supported client, by using the ``/fork`` command.  This creates a new cloud group chat with the same participants.
+
+Multiple file transfers
+~~~~~~~~~~~~~~~~~~~~~~~
+
+It appears that file transfers involving more than one file are handled differently within downloadable clients, and are not yet available over Skype for Web (the message is replaced with "Receiving files over P2P network is not supported on Skype for Web").
+
+`This forum post <https://community.skype.com/t5/Skype-for-Web-Beta/Skype-for-web-not-recieving-files-in-cloud-based-converstation/td-p/4307232>`_ notes that there are two file transfer modes, one of which is "cloud transfer" and works with Skype for Web.  Other clients will likely be updated to support this at some point.

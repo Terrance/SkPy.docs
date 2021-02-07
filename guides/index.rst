@@ -5,8 +5,8 @@ These pages will get you up and running with the library: installing the Python 
 
 .. toctree::
 
-    installation
-    authentication
+    install
+    login
     contacts
     chats
     messages

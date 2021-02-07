@@ -1,6 +1,8 @@
 Installation
 ============
 
+SkPy supports Python 2.6+ and Python 3.
+
 From PyPI
 ---------
 
@@ -30,7 +32,6 @@ You can also just go ahead and import :mod:`skpy` from the repo root, assuming t
 Requirements
 ------------
 
-- Python 2.6+ (includes 3.x)
 - `BeautifulSoup <http://www.crummy.com/software/BeautifulSoup/>`_
 - `Requests <http://www.python-requests.org/en/latest/>`_ [1]_
 - `Responses <https://github.com/getsentry/responses>`_ (for tests)

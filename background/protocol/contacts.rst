@@ -1,18 +1,5 @@
-Contacts
-========
-
-Field notes
------------
-
-- Gender values are ``1`` for male, and ``2`` for female.
-
-- Phone number types are ``0`` for home, ``1`` for work, and ``2`` for mobile.
-
-- Location countries and languages are represented by two-letter country codes, though they are inconsistently cased -- some users have uppercase codes, others have lowercase.
-
-- Whilst users have first and last name fields, the Skype desktop clients only provide a single name field.  As such, the names of many users are stored entirely in the first name field, with an empty last name.  In addition, some users' display names are blank regardless of the values of their name fields.
-
-  .. note:: SkPy will automatically try to split names into the last name field if needed.
+Contact endpoints
+=================
 
 Contact list
 ------------
@@ -349,3 +336,14 @@ Old endpoints
                                      "Rank": 0,
                                      "SkypeName": "joe.4"}}},
          ...]
+
+Field notes
+-----------
+
+- Gender values are ``1`` for male, and ``2`` for female.
+- Phone number types are ``0`` for home, ``1`` for work, and ``2`` for mobile.
+- Location countries and languages are represented by two-letter country codes, though they are inconsistently cased -- some users have uppercase codes, others have lowercase.
+- Whilst users have first and last name fields, the Skype desktop clients only provide a single name field.  As such, the names of many users are stored entirely in the first name field, with an empty last name.  In addition, some users' display names are blank regardless of the values of their name fields.
+
+.. note::
+    SkPy will automatically try to split names into the last name field if needed.
