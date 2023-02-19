@@ -24,11 +24,11 @@ Iterating chats
 
 Skype doesn't provide a complete list of all conversations the user is party to.  However, single or group conversations with recent activity can be retrieved with :meth:`.SkypeChats.recent`.  This can be called multiple times to fetch the next batch.  To iterate over all conversations, you might do something like this::
 
-    >>> while True:
-    ...     for id in sk.chats.recent():
-    ...         print(id)
-    ...     else: # No more chats returned.
-    ...         break
+    >>> while sk.chats.recent():
+    ...     pass  # Just populate the cache.
+    ...
+    >>> for chat in sk.chats:
+    ...     print(chat.id)
     ...
     8:joe.4
     8:daisy.5
