@@ -29,9 +29,11 @@ Account action required (https://...), login with a web browser first
 Rate limiting
 -------------
 
-If you make too many authentication attempts, you may become temporarily rate limited by the Skype API, or be required to complete a captcha to continue.  For the latter, this needs to be done in a browser with a matching IP address.
+If you make too many authentication attempts, or make significant numbers of other requests, you may become temporarily rate limited by the Skype API, or be required to complete a captcha to continue.  For the latter, this needs to be done in a browser with a matching IP address.
 
-To avoid this, you should reuse the Skype token where possible.  A token will usually only last for 24 hours (even ``web.skype.com`` forces re-authentication after that time), though you can check the expiry with :attr:`.SkypeConnection.tokenExpiry`.
+To avoid authenticating over and over, you should reuse the Skype token where possible.  A token will usually only last for 24 hours (even ``web.skype.com`` forces re-authentication after that time), though you can check the expiry with :attr:`.SkypeConnection.tokenExpiry`.
+
+Remember that the APIs that SkPy uses are intended for Skype for Web, an application that is not designed for (and will likely defend against) automated or bulk use.
 
 Session expiry
 --------------

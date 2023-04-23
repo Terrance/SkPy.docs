@@ -15,7 +15,7 @@ The aim of this library is to provide feature-complete support for Skype for Web
 - translation API, user settings, credit/subscription info and more
 
 .. warning::
-    The upstream APIs used here are undocumented and are liable to change, which may cause parts of this library to fall apart in obvious or non-obvious ways.
+    The upstream APIs used here are undocumented and are liable to change, which may cause parts of this library to fall apart in obvious or non-obvious ways.  These APIs are intended for `Skype for Web <https://web.skype.com/>`_, an application that is not designed for (and will likely defend against) automated or bulk use.
 
     If you're looking to create a bot for other Skype users to interact with, consider using the official `Microsoft Bot Framework <https://dev.botframework.com>`_ instead.
 
